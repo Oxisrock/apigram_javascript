@@ -1,5 +1,7 @@
-var numeros = [ 1, 2 , 4 ];
+var page = require('page');
 
-var numeroMas1 = numeros.map(num => num +1)
+require('./homepage');
 
-console.log(numeroMas1);
+require('./signup');
+
+page();
