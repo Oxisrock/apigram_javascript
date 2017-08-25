@@ -4,4 +4,6 @@ require('./homepage');
 
 require('./signup');
 
+require('./signin');
+
 page();

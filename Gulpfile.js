@@ -10,7 +10,7 @@ gulp.task('styles', function (){
   gulp
     .src('index.scss')
     //toma el archivo
-    .pipe(sass())
+    .pipe(sass().on('error', sass.logError))
     //.pipe es los pasos que debe seguir la task
     .pipe(rename('app.css'))
     //gulp rename es una libreria para renombrar archivos
@@ -30,6 +30,10 @@ function compile(watch) {
    bundle
     .transform(babel)
     .bundle()
+    .on('error', function (e) {
+      console.log(err);
+      this.emit('end');
+    })
     .pipe(source('index.js'))
     .pipe(rename('app.js'))
     .pipe(gulp.dest('public/js'));
@@ -42,14 +46,6 @@ function compile(watch) {
   }
   rebundle();
 }
-
-// gulp.task('scripts', function (){
-//     .transform(babel)
-//     .bundle()
-//     .pipe(source('index.js'))
-//     .pipe(rename('app.js'))
-//     .pipe(gulp.dest('public/js'));
-// })
 
 gulp.task('build', function () {
  return compile();

@@ -4,7 +4,7 @@ var nombre = 'Francisco';
 var mensaje = `Buenos dias ${nombre}`;
 
 // template para signup
-var signupForm = yo`
+var signinForm = yo`
 <div class="col s12 m7">
   <div class="row">
 <div class="signup-box">
@@ -18,21 +18,19 @@ var signupForm = yo`
     </div>
     <div class="divider"></div>
     <div class="section">
-      <input type="email" name="email" placeholder="Email"/>
-      <input type="text" name="name" placeholder="Name"/>
       <input type="text" name="username" placeholder="Username"/>
       <input type="password" name="password" placeholder="Password"/>
-      <button class="btn waves-effect waves-light btn-signup" type="submit">Sign up </button>
+      <button class="btn waves-effect waves-light btn-signup" type="submit">Iniciar sesion</button>
     </div>
   </form>
   </div>
 </div>
 <div class="row">
   <div class="login-box">
-    ¿ Ya tienes cuenta ? <a href="/signin">Entrar</a>
+    ¿ No tienes cuenta ? <a href="/signup">Registrate</a>
   </div>
 </div>
 </div>
 
 `;
-module.exports = landing(signupForm);
+module.exports = landing(signinForm);
