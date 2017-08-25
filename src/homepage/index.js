@@ -15,7 +15,7 @@ page('/', function(ctx, next) {
         avatar: 'img/internt_web_technology-13-256.png',
       },
       url: 'img/world-of-warcraft-alliance-characters-wallpaper-3.jpg',
-      likes: 100,
+      likes: 0,
       liked: false,
       createdAt: new Date()
     },
@@ -25,7 +25,7 @@ page('/', function(ctx, next) {
         avatar: 'img/internt_web_technology-13-256.png',
       },
       url: 'img/world-of-warcraft-alliance-characters-wallpaper-3.jpg',
-      likes: 120,
+      likes: 1,
       liked: false,
       createdAt: new Date().setDate(new Date().getDate() - 12)
     }
