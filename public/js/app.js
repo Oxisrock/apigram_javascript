@@ -9530,6 +9530,34 @@ module.exports = [
 ]
 
 },{}],38:[function(require,module,exports){
+var yo = require('yo-yo');
+var translate = require('../translate');
+
+var el = yo`
+<footer class="site-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col s12 l3 center-align">
+        <a class="dropdown-button btn btn-flat" href="#" data-activates="dropdown1">${translate.message('language')}</a>
+        <ul id="dropdown1" class="dropdown-content">
+          <li><a href='#' onclick=${lang.bind(null, 'es')}>${translate.message('spanish')}</a></li>
+          <li><a href='#' onclick=${lang.bind(null, 'en-US')}>${translate.message('english')}</a></li>
+        </ul>
+    </div>
+    <div class="col s12 l3 push-l6 center-align">| 2017Apigram</div>
+  </div>
+</div>
+</footer>`;
+
+function lang(locale) {
+  localStorage.locale = locale;
+  location.reload();
+  return false;
+}
+
+document.body.appendChild(el);
+
+},{"../translate":51,"yo-yo":36}],39:[function(require,module,exports){
 // ruta signin
 var page = require('page');
 var empty = require('empty-element');
@@ -9563,7 +9591,7 @@ page('/', function (ctx, next) {
   empty(main).appendChild(template(pictures));
 });
 
-},{"./template":39,"empty-element":3,"page":32,"title":35}],39:[function(require,module,exports){
+},{"./template":40,"empty-element":3,"page":32,"title":35}],40:[function(require,module,exports){
 var yo = require('yo-yo');
 var nombre = 'Francisco';
 var mensaje = `Buenos dias ${nombre}`;
@@ -9587,7 +9615,7 @@ module.exports = function (pictures) {
   return layout(el);
 };
 
-},{"../layout":42,"../picture-card":43,"yo-yo":36}],40:[function(require,module,exports){
+},{"../layout":43,"../picture-card":44,"yo-yo":36}],41:[function(require,module,exports){
 var page = require('page');
 
 require('./homepage');
@@ -9596,9 +9624,11 @@ require('./signup');
 
 require('./signin');
 
+require('./footer');
+
 page();
 
-},{"./homepage":38,"./signin":44,"./signup":46,"page":32}],41:[function(require,module,exports){
+},{"./footer":38,"./homepage":39,"./signin":45,"./signup":47,"page":32}],42:[function(require,module,exports){
 var yo = require('yo-yo');
 
 module.exports = function landing(box) {
@@ -9616,11 +9646,11 @@ module.exports = function landing(box) {
     </div>`;
 };
 
-},{"yo-yo":36}],42:[function(require,module,exports){
+},{"yo-yo":36}],43:[function(require,module,exports){
 var yo = require('yo-yo');
 var nombre = 'Francisco';
 var mensaje = `Buenos dias ${nombre}`;
-
+var translate = require('../translate');
 module.exports = function layout(content) {
   // template para signup
   return yo`<div>
@@ -9632,11 +9662,11 @@ module.exports = function layout(content) {
             <a href="/" class="brand-logo apigram">Apigram</a>
           </div>
           <div class="col s2 m6 push-s10 push-m10">
-            <a href="#" class="btn btn-large btn-flat dropdown-button" data-activates="drop-user">
+            <a href="#!" class="btn btn-large btn-flat dropdown-button" data-activates="drop-user">
               <i class="fa fa-user" aria-hidden="true"></i>
             </a>
             <ul id="drop-user" class="dropdown-content">
-              <li><a href="#">Sign out</a></li>
+              <li><a href="#!">${translate.message('logout')}</a></li>
             </ul>
           </div>
         </div>
@@ -9650,7 +9680,7 @@ module.exports = function layout(content) {
   `;
 };
 
-},{"yo-yo":36}],43:[function(require,module,exports){
+},{"../translate":51,"yo-yo":36}],44:[function(require,module,exports){
 var yo = require('yo-yo');
 var translate = require('../translate');
 module.exports = function pictureCard(pic) {
@@ -9686,7 +9716,7 @@ module.exports = function pictureCard(pic) {
   return el;
 };
 
-},{"../translate":50,"yo-yo":36}],44:[function(require,module,exports){
+},{"../translate":51,"yo-yo":36}],45:[function(require,module,exports){
 // ruta signin
 var page = require('page');
 var empty = require('empty-element');
@@ -9699,12 +9729,12 @@ page('/signin', function (ctx, next) {
   empty(main).appendChild(template);
 });
 
-},{"./template":45,"empty-element":3,"page":32,"title":35}],45:[function(require,module,exports){
+},{"./template":46,"empty-element":3,"page":32,"title":35}],46:[function(require,module,exports){
 var yo = require('yo-yo');
 var landing = require('../landing');
 var nombre = 'Francisco';
 var mensaje = `Buenos dias ${nombre}`;
-
+var translate = require('../translate');
 // template para signup
 var signinForm = yo`
 <div class="col s12 m7">
@@ -9713,23 +9743,23 @@ var signinForm = yo`
   <h1 class="apigram">Apigram</h1>
   <form class="signup-form">
     <h2>${mensaje}</h2>
-    <h2>Registrate para ver como funciona una api de node.js</h2>
+    <h2>${translate.message('signup.subheading')}</h2>
     <div class="section">
-      <a class="btn btn-fb hide-on-small-only">Iniciar sesion con facebook</a>
-      <a class="btn btn-fb  hide-on-med-and-up"><i class="fa fa-facebook-official"></i>Iniciar sesion</a>
+      <a class="btn btn-fb hide-on-small-only">${translate.message('signup.facebook')}</a>
+      <a class="btn btn-fb  hide-on-med-and-up"><i class="fa fa-facebook-official"></i>${translate.message('signup.text')}</a>
     </div>
     <div class="divider"></div>
     <div class="section">
-      <input type="text" name="username" placeholder="Username"/>
-      <input type="password" name="password" placeholder="Password"/>
-      <button class="btn waves-effect waves-light btn-signup" type="submit">Iniciar sesion</button>
+      <input type="text" name="username" placeholder="${translate.message('username')}"/>
+      <input type="password" name="password" placeholder="${translate.message('password')}"/>
+      <button class="btn waves-effect waves-light btn-signup" type="submit">${translate.message('signup.text')}</button>
     </div>
   </form>
   </div>
 </div>
 <div class="row">
   <div class="login-box">
-    ¿ No tienes cuenta ? <a href="/signup">Registrate</a>
+  ${translate.message('signin.already-have-account')} <a href="/signup">${translate.message('signup.call-to-action')}</a>
   </div>
 </div>
 </div>
@@ -9737,7 +9767,7 @@ var signinForm = yo`
 `;
 module.exports = landing(signinForm);
 
-},{"../landing":41,"yo-yo":36}],46:[function(require,module,exports){
+},{"../landing":42,"../translate":51,"yo-yo":36}],47:[function(require,module,exports){
 // ruta signup
 var page = require('page');
 var empty = require('empty-element');
@@ -9750,12 +9780,12 @@ page('/signup', function (ctx, next) {
   empty(main).appendChild(template);
 });
 
-},{"./template":47,"empty-element":3,"page":32,"title":35}],47:[function(require,module,exports){
+},{"./template":48,"empty-element":3,"page":32,"title":35}],48:[function(require,module,exports){
 var yo = require('yo-yo');
 var landing = require('../landing');
 var nombre = 'Francisco';
 var mensaje = `Buenos dias ${nombre}`;
-
+var translate = require('../translate');
 // template para signup
 var signupForm = yo`
 <div class="col s12 m7">
@@ -9764,25 +9794,25 @@ var signupForm = yo`
   <h1 class="apigram">Apigram</h1>
   <form class="signup-form">
     <h2>${mensaje}</h2>
-    <h2>Registrate para ver como funciona una api de node.js</h2>
+    <h2>${translate.message('signup.subheading')}</h2>
     <div class="section">
-      <a class="btn btn-fb hide-on-small-only">Iniciar sesion con facebook</a>
-      <a class="btn btn-fb  hide-on-med-and-up"><i class="fa fa-facebook-official"></i>Iniciar sesion</a>
+      <a class="btn btn-fb hide-on-small-only">${translate.message('signup.facebook')}</a>
+      <a class="btn btn-fb  hide-on-med-and-up"><i class="fa fa-facebook-official"></i>${translate.message('signup.text')}</a>
     </div>
     <div class="divider"></div>
     <div class="section">
-      <input type="email" name="email" placeholder="Email"/>
-      <input type="text" name="name" placeholder="Name"/>
-      <input type="text" name="username" placeholder="Username"/>
-      <input type="password" name="password" placeholder="Password"/>
-      <button class="btn waves-effect waves-light btn-signup" type="submit">Sign up </button>
+      <input type="email" name="email" placeholder="${translate.message('email')}"/>
+      <input type="text" name="name" placeholder="${translate.message('fullname')}"/>
+      <input type="text" name="username" placeholder="${translate.message('username')}"/>
+      <input type="password" name="password" placeholder="${translate.message('password')}"/>
+      <button class="btn waves-effect waves-light btn-signup" type="submit"> ${translate.message('signup.call-to-action')} </button>
     </div>
   </form>
   </div>
 </div>
 <div class="row">
   <div class="login-box">
-    ¿ Ya tienes cuenta ? <a href="/signin">Entrar</a>
+    ${translate.message('signup.have-account')} <a href="/signin">${translate.message('signup.call-to-action')}</a>
   </div>
 </div>
 </div>
@@ -9790,14 +9820,44 @@ var signupForm = yo`
 `;
 module.exports = landing(signupForm);
 
-},{"../landing":41,"yo-yo":36}],48:[function(require,module,exports){
+},{"../landing":42,"../translate":51,"yo-yo":36}],49:[function(require,module,exports){
 module.exports = {
-        likes: '{ likes, plural, ' + '=0 {no likes}' + '=1 {# like}' + 'other {# likes}}'
+        likes: '{ likes, plural, ' + '=0 {no likes}' + '=1 {# like}' + 'other {# likes}}',
+        'logout': 'Logout',
+        'english': 'English',
+        'spanish': 'Spanish',
+        'signup.subheading': 'Signup in Apigram',
+        'signup.facebook': 'Signup with facebook',
+        'signup.text': 'Signup',
+        'email': 'Email',
+        'username': 'Username',
+        'fullname': 'Fullname',
+        'password': 'Password',
+        'signup.call-to-action': 'Signup',
+        'signup.have-account': 'Al ready have an account?',
+        'signin': 'Signin',
+        'signin.already-have-account': '¿Dont have an account?',
+        'language': 'Language'
 };
 
-},{}],49:[function(require,module,exports){
+},{}],50:[function(require,module,exports){
 module.exports = {
-  likes: '{ likes, number} me gusta'
+  'likes': '{ likes, number} me gusta',
+  'logout': 'Salir',
+  'english': 'Ingles',
+  'spanish': 'Español',
+  'signup.subheading': 'Registrate para ver como funciona una api de node.js',
+  'signup.facebook': 'Iniciar Sesion con facebook',
+  'signup.text': 'Iniciar sesion',
+  'email': 'Correo electronico',
+  'username': 'Nombre de usuario',
+  'fullname': 'Nombre Completo',
+  'password': 'Contraseña',
+  'signup.call-to-action': 'Registrate',
+  'signup.have-account': '¿Ya Tienes Cuenta?',
+  'signin': 'Entrar',
+  'signin.already-have-account': '¿No tienes cuenta?',
+  'language': 'Idioma'
 
   //0 me gusta
   //1 me gusta
@@ -9805,7 +9865,7 @@ module.exports = {
 
 };
 
-},{}],50:[function(require,module,exports){
+},{}],51:[function(require,module,exports){
 if (!window.Intl) {
   window.Intl = require('intl');
   require('intl/locale-data/jsonp/en-US.js');
@@ -9828,7 +9888,7 @@ var MESSAGES = {};
 
 MESSAGES.es = es;
 MESSAGES['en-US'] = en;
-var locale = 'en-US';
+var locale = localStorage.locale || 'es';
 module.exports = {
   message: function (text, opts) {
     ops = opts || {};
@@ -9838,4 +9898,4 @@ module.exports = {
   date: new IntlRelativeFormat(locale)
 };
 
-},{"./en-US":48,"./es":49,"intl":25,"intl-messageformat":10,"intl-relativeformat":19,"intl-relativeformat/dist/locale-data/en.js":17,"intl-relativeformat/dist/locale-data/es.js":18,"intl/locale-data/jsonp/en-US.js":27,"intl/locale-data/jsonp/es.js":28}]},{},[40]);
+},{"./en-US":49,"./es":50,"intl":25,"intl-messageformat":10,"intl-relativeformat":19,"intl-relativeformat/dist/locale-data/en.js":17,"intl-relativeformat/dist/locale-data/es.js":18,"intl/locale-data/jsonp/en-US.js":27,"intl/locale-data/jsonp/es.js":28}]},{},[41]);

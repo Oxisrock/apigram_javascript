@@ -6,4 +6,6 @@ require('./signup');
 
 require('./signin');
 
+require('./footer');
+
 page();
