@@ -9628,17 +9628,40 @@ function loadPicturesFetch(ctx, next) {
   });
 }
 
+// async function asyncLoad(ctx, next) {
+//   try {
+//     var pictures = await fetch('/api/pictures').them(res => res.json())
+//     ctx.pictures = pictures;
+//     next();
+//   } catch (e) {
+//     return console.log(err);
+//   }
+// }
+
 },{"../header":39,"./template":41,"empty-element":3,"page":32,"title":35}],41:[function(require,module,exports){
 var yo = require('yo-yo');
 var nombre = 'Francisco';
 var mensaje = `Buenos dias ${nombre}`;
 var layout = require('../layout');
 var picture = require('../picture-card');
+var translate = require('../translate');
 // template para signup
 
 module.exports = function (pictures) {
   var el = yo`
     <div class="container timeline">
+      <div class="row">
+        <div class="col s12 m10 offset-m1 l8 offset-l2 center-align">
+          <form enctype="multipart/form-data" class="form-upload" id="formUpload" onsubmit=${onSubmit}>
+            <div id="fileName" class="fileUpload btn btn-flat cyan">
+              <span><i class="fa fa-camera" aria-hidden="true"></i> ${translate.message('upload-picture')} </span>
+              <input name="picture" id="file" type="file" class="upload" onchange=${onchange} />
+            </div>
+            <button id="btnUpload" type="submit" class="btn btn-flat cyan hide">${translate.message('upload')}</button>
+            <button id="btnCancel" type="button" class="btn btn-flat red hide" onclick=${cancel}><i class="fa fa-times" aria-hidden="true"></i></button>
+          </form>
+        </div>
+      </div>
       <div class="row">
         <div class="col s12 m10 offset-m1 l6 offset-l3">
           ${pictures}
@@ -9649,10 +9672,23 @@ module.exports = function (pictures) {
       </div>
     </div>
     `;
+  function toggleButtons() {
+    document.getElementById('fileName').classList.toggle('hide');
+    document.getElementById('btnUpload').classList.toggle('hide');
+    document.getElementById('btnCancel').classList.toggle('hide');
+  }
+  function cancel() {
+    toggleButtons();
+    document.getElementById('formUpload').reset();
+  }
+  function onchange() {
+    toggleButtons();
+  }
+  function onSubmit(ev) {}
   return layout(el);
 };
 
-},{"../layout":44,"../picture-card":45,"yo-yo":36}],42:[function(require,module,exports){
+},{"../layout":44,"../picture-card":45,"../translate":52,"yo-yo":36}],42:[function(require,module,exports){
 var page = require('page');
 
 require('./homepage');
@@ -9854,7 +9890,9 @@ module.exports = {
         'signup.have-account': 'Al ready have an account?',
         'signin': 'Signin',
         'signin.already-have-account': '¿Dont have an account?',
-        'language': 'Language'
+        'language': 'Language',
+        'upload-picture': 'Upload picture',
+        'upload': 'Upload'
 };
 
 },{}],51:[function(require,module,exports){
@@ -9874,7 +9912,9 @@ module.exports = {
   'signup.have-account': '¿Ya Tienes Cuenta?',
   'signin': 'Entrar',
   'signin.already-have-account': '¿No tienes cuenta?',
-  'language': 'Idioma'
+  'language': 'Idioma',
+  'upload-picture': 'Subir foto',
+  'upload': 'Subir'
 
   //0 me gusta
   //1 me gusta

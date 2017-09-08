@@ -38,3 +38,13 @@ function loadPicturesFetch(ctx, next) {
       console.log(err);
     })
 }
+
+// async function asyncLoad(ctx, next) {
+//   try {
+//     var pictures = await fetch('/api/pictures').them(res => res.json())
+//     ctx.pictures = pictures;
+//     next();
+//   } catch (e) {
+//     return console.log(err);
+//   }
+// }
