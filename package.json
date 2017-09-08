@@ -23,6 +23,7 @@
     "materialize-css": "^0.100.1",
     "page": "^1.7.1",
     "pug": "^2.0.0-rc.3",
+    "superagent": "^3.6.0",
     "title": "^1.0.0",
     "yo-yo": "^1.4.1"
   },
