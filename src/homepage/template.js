@@ -4,7 +4,7 @@ var mensaje = `Buenos dias ${nombre}`;
 var layout = require('../layout');
 var picture = require('../picture-card');
 var translate = require('../translate');
-var request = require('superagent');
+var request = require('axios');
 // template para signup
 
 module.exports = function (pictures) {
@@ -49,12 +49,21 @@ module.exports = function (pictures) {
 
       var data = new FormData(this);
 
-      request
-        .post('/api/pictures')
-        .send(data)
-        .end(function (err, res) {
-          console.log(arguments);
-        })
+      // request
+      //   .post('/api/pictures')
+      //   .send(data)
+      //   .end(function (err, res) {
+      //     console.log(arguments);
+      //   })
+
+       request
+          .post('/api/pictures',data)
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (err) {
+            console.log(err);
+          });
 
         // function loadPicturesAxios (ctx, next) {
         //   axios
